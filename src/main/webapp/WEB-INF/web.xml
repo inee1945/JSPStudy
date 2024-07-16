@@ -46,12 +46,72 @@
   </context-param>
   <context-param>
   	<param-name>POSTS_PER_PAGE</param-name>
-  	<param-value>10</param-value>
+  	<param-value>2</param-value>
   </context-param>
   <context-param>
-  	<param-name>POSTS_PER_BLOCK</param-name>
-  	<param-value>5</param-value>
+  	<param-name>PAGES_PER_BLOCK</param-name>
+  	<param-value>2</param-value>
   </context-param>
+  
+  <servlet>
+  	<servlet-name>HelloServlet</servlet-name>
+  	<servlet-class>servlet.HelloServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>HelloServlet</servlet-name>
+  	<url-pattern>/12Servlet/HelloServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>DirectServletPrint</servlet-name>
+  	<servlet-class>servlet.DirectServletPrint</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>DirectServletPrint</servlet-name>
+  	<url-pattern>/12Servlet/DirectServletPrint.do</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 목록 -->
+  <servlet>
+  	<servlet-name>MVCBoardList</servlet-name>
+  	<servlet-class>model2.mvcboard.ListController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>MVCBoardList</servlet-name>
+  	<url-pattern>/mvcboard/list.do</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 글쓰기 -->
+  <servlet>
+  	<servlet-name>MVCBoardWrite</servlet-name>
+  	<servlet-class>model2.mvcboard.WriteController</servlet-class>
+  	<multipart-config>
+  		<max-file-size>104857600</max-file-size>
+  		<max-request-size>1048576000</max-request-size>
+  	</multipart-config>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>MVCBoardWrite</servlet-name>
+  	<url-pattern>/mvcboard/write.do</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  <!-- 서블릿 수명주기 메서드를 이용한 회원인증 -->
+  <servlet>
+  	<servlet-name>MemberAuth</servlet-name>
+  	<servlet-class>servlet.MemberAuth</servlet-class>
+  	
+  	<!-- 등록된서블릿내에서만 사용가능한 초기화 파라미터(지역상수의 일종) -->
+  	<init-param>
+  		<param-name>admin_id</param-name>
+  		<param-value>nakja</param-value>
+  	</init-param>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>MemberAuth</servlet-name>
+  	<url-pattern>/12Servlet/MemberAuth.mvc</url-pattern>
+  </servlet-mapping>
   
   <session-config>
    <session-timeout>35</session-timeout>

@@ -1,3 +1,4 @@
+<%@page import="utils.CookieManager"%>
 <%@page import="model1.board.BoardDTO"%>
 <%@page import="model1.board.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -72,5 +73,38 @@ dao.close();
 			</tr>
 		</table>
 	</form>
+	
+	<h2>1. 쿠키 설정</h2>
+	<%
+	String ckValue = CookieManager.readCookie(request, "board-"+num);
+	if(!ckValue.equals("read")){
+		CookieManager.makeCookie(response, "board-"+num, "read", 1000);
+		
+		//게시물 조회수 증가
+		dao.updateVisitCount(num);
+	}
+	
+	
+	
+	Cookie cookie = new Cookie("myCookie","쿠키맛나요");
+	cookie.setPath(request.getContextPath());
+	cookie.setMaxAge(3600);
+	
+	//응답 헤더에 쿠키ㅣ를 추가하여  클라이언트 쪽으로 전송
+	response.addCookie(cookie);	
+	%>
+
+	<h2>쿠기 설정 후 값 확인하기</h2>
+	<%
+	Cookie[] cookies = request.getCookies();
+	if(cookies !=null){
+		for(Cookie c : cookies){
+			String cookieName = c.getName();
+			String cookieValue = c.getValue();
+			out.println(String.format("%s : %s<br/>", cookieName, cookieValue));
+		}
+	}
+	%>
+	
 </body>
 </html>

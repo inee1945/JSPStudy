@@ -19,6 +19,8 @@ function validateForm(form) {  // 폼 내용 검증
         return false;
     }
 }
+
+${requ}
 </script>
 </head>
 <body>
